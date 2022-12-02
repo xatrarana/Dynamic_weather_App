@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,body{
+        font-size: 62.5%;
+        height: 100%;
+      }
+      body {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .box {
+        width: 400px;
+        height: 80vh;
+        background-color: rgb(245 243 253);
+        border-radius: 5px;
+        border: 1px solid black;
+        box-shadow:0 2.2rem 6rem rgba(0, 0, 0, 0.2);
+        margin: 70px 0px;
+        /* display: flex;
+        justify-content: center; */
+        transform: translate3d(0,0,0,);
+        min-width: 20rem;
+        min-width: 35rem;
+        position: relative;
+      }
+      .weatherIcon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 40px 50px;
+      }
+      .active {
+        margin: 100px 50px;
+        display: flex;
+        /* align-items: center; */
+        justify-content: center;
+        font-size: 80px;
+        color: black !important;
+      }
+      .location {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 25px;
+        margin: 30px;
+      }
+      #date{
+       
+    justify-content: center;
+    display: flex;
+    font-size: 20px;
+    margin: 30px;
+      }
+      .temp{
+        display: flex;
+    justify-content: center;
+    margin: 30px;
+    font-size: 40px;
+   
+      }
+      .tempMinMax{
+        display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    margin: 30px;
+    font-size: 20px;    
+      }
+      .location .fa-street-view{
+        font-size: 50px;
+        padding: 0px 10px;
+      }
+       /* .wave{
+        opacity: 0.3;
+        width: 50rem;
+        height: 50rem;
+        background-color: black;
+        border-radius: 43%;
+        top: 120%;
+        left: 50%;
+        margin-left: -25rem;
+        margin-top: -25rem;
+        transform-origin: 50% 48%;
+        z-index: 1;
+        animation: drift 300ms infinite linear;
+
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="wave -one"></div>
+      <div class="wave -two"></div>
+      <div class="wave -three"></div>
+
+      <div id="weatherIcon">
+        <!-- <i class="fa-solid fa-cloud"></i> -->
+        <i class="fa-solid fa-sun active" style="color: #eccc68"></i>
+    </div>
+        <div class="info">
+          <h2 class="location">
+            <i class="fa-solid fa-street-view"></i> {%location%}, {%country%}
+          </h2>
+          <p id="date">Fri | DEC | 10:43 PM</p>
+          <!-- nodejs value that is extratec form api -->
+          <h1 class="temp"> {%tempval%}&#8451;</h1>
+          <h3 class="tempMinMax">Min: {%temp_min%}&#8451; | Max: {%temp_max%}&#8451;</h3>
+          <div class="devinfo">
+            <h2 style="margin: 20px 0px; display: flex; justify-content: center;font-size: 20px;">Developed by xatara rana</h2>
+          </div>
+        </div>
+      
+    </div>
+    
+    <script>
+        const curDate = document.querySelector('#date');
+        const weathercon = document.getElementById('weatherIcon');
+        let  tempStatus = " {%tempStatus%}" ;
+        console.log(tempStatus);
+        if(tempStatus === "Clouds"){
+            console.log("value right xa");
+            weathercon.innerHTML = "<i class='fa-solid fa-cloud active' style='color: #eccc68'></i>";
+        }
+        const getDay = () =>{
+            const days = ["SUN", "MON", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+            const d = new Date();
+            let day = days[d.getDay()];
+            return day.toUpperCase();
+        }
+        const getMont = () =>{
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            const d = new Date();
+            let month = months[d.getMonth()];
+            return month.toUpperCase();
+        }
+        const getTime = () =>{
+            const d = new Date();
+            var hrs = d.getHours();
+            var bak = () =>{
+                if(d.getHours()>=12){
+                    return "PM";
+                }
+                return "AM";
+            };
+            var min = ()=>{
+                if(d.getMinutes()<10){
+                    return "0"+d.getMinutes();
+                }
+                return d.getMinutes();
+            }
+            return hrs+":"+min()+" "+bak();
+        }
+
+
+        console.log(getDay(),getMont(),getTime());
+        curDate.innerHTML = `${getDay()} | ${getMont()} | ${getTime()}`;
+        
+    </script>
+  </body>
+</html>
